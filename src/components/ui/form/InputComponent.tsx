@@ -1,7 +1,16 @@
 import type { TextInputComponentPropsType } from "./Form.contract";
 import FormLabel from "./Label";
 
-export default function TextInputComponent ({htmlFor='', label, type='text', name='', placeholder='', labelClass='', inputClass='', onChange}: TextInputComponentPropsType) {
+export default function TextInputComponent({
+  htmlFor = "",
+  label,
+  type = "text",
+  name = "",
+  placeholder = "",
+  labelClass = "",
+  inputClass = "",
+  onChange,
+}: TextInputComponentPropsType) {
   return (
     <div className="w-full flex items-center">
       <FormLabel htmlFor={htmlFor} className={labelClass}>
@@ -21,4 +30,4 @@ export default function TextInputComponent ({htmlFor='', label, type='text', nam
       </div>
     </div>
   );
-};
+}

@@ -73,10 +73,9 @@ export default function SignupForm() {
             <p>
               By signing up, you agree with
               <Link to="/privacy-policy" className="text-teal-600 underline">
-                {" "}
                 Privacy policy
-              </Link>{" "}
-              &{" "}
+              </Link> 
+              & 
               <Link
                 to="/terms-and-conditions"
                 className="text-teal-600 underline"
