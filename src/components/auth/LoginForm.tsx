@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import TextInputComponent from "../ui/form/InputComponent";
+import { TextInputComponent } from "../ui/form/InputComponent";
 import Button from "../ui/button/Button";
-import { useEffect, useState, type BaseSyntheticEvent } from "react";
+import { useForm } from "react-hook-form";
 
 type CredentialsType = {
   username: string;
@@ -10,63 +10,39 @@ type CredentialsType = {
 
 export default function LoginForm () {
 
-    const [credentials, setCredentials] = useState<CredentialsType>({
-    username: "",
-    password: "",
-  });
+  const {control, handleSubmit, formState: {isSubmitting, errors}} = useForm({
+    defaultValues: {
+      username: "", password: ""
+    }
+  })
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const handleLoginSubmit = (e: BaseSyntheticEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const handleLoginSubmit = (data: CredentialsType) => {
+    console.log(data)
+    // setIsSubmitting(true);
   };
 
-  useEffect(() => {
-    console.log("This effect runs in every render", isSubmitting);
-
-    return () => {
-      setIsSubmitting;
-    };
-  });
-
-  useEffect(() => {
-    console.log("This effect runs only once when we render for the first time");
-  }, []);
-
-  useEffect(() => {
-    console.log("This effect runs on every time it'd dependency is called");
-  }, [isSubmitting]);
-
-  const handleInputChange = (e: BaseSyntheticEvent) => {
-    const { name, value } = e.target;
-    console.log(value);
-    setCredentials({
-      ...credentials,
-      [name]: value,
-    });
-  };
 
     return(
         <>
             <form
-              onSubmit={handleLoginSubmit}
+              onSubmit={handleSubmit(handleLoginSubmit)}
               className="w-full flex flex-col gap-5 py-5"
             >
               <TextInputComponent
+              control={control} errMsg= {errors?.username?.message}
                 label={"Username:"}
                 type={"username"}
                 placeholder={"Enter your username"}
                 name={"username"}
-                onChange={handleInputChange}
+                
               ></TextInputComponent>
 
               <TextInputComponent
+              control={control} errMsg= {errors?.password?.message}
                 label={"Password:"}
                 type={"password"}
                 placeholder={"Enter your password"}
                 name={"password"}
-                onChange={handleInputChange}
               ></TextInputComponent>
 
               <div className="w-full flex items-center justify-end">
@@ -87,15 +63,15 @@ export default function LoginForm () {
                 <Button
                   buttonName={"Cancel"}
                   type={"reset"}
+                  disabled = {isSubmitting}
                   className={"bg-red-600 hover:bg-red-700 text-white"}
-                  disabled={isSubmitting}
                 ></Button>
 
                 <Button
                   buttonName={"Submit"}
                   type={"submit"}
+                  disabled = {isSubmitting}
                   className={"bg-green-600 hover:bg-green-700 text-white"}
-                  disabled={isSubmitting}
                 ></Button>
               </div>
             </form>

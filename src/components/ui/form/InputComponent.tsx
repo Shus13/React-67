@@ -1,16 +1,22 @@
+import { useController, type FieldValues } from "react-hook-form";
 import type { TextInputComponentPropsType } from "./Form.contract";
 import FormLabel from "./Label";
 
-export default function TextInputComponent({
+export const TextInputComponent = <T extends FieldValues>({
+  errMsg = "",
   htmlFor = "",
   label,
   type = "text",
-  name = "",
+  name,
   placeholder = "",
   labelClass = "",
   inputClass = "",
-  onChange,
-}: TextInputComponentPropsType) {
+  control,
+}: TextInputComponentPropsType<T>) => {
+  const { field } = useController({
+    name: name,
+    control: control,
+  });
   return (
     <div className="w-full flex items-center">
       <FormLabel htmlFor={htmlFor} className={labelClass}>
@@ -20,14 +26,13 @@ export default function TextInputComponent({
       <div className="w-3/4 flex flex-col">
         <input
           type={type}
-          name={name}
-          id={name}
+          {...field}
           placeholder={placeholder}
-          onChange={onChange}
           className={`w-full p-2
                         border border-gray-300 rounded-md ${inputClass}`}
         />
+        {errMsg && <p className="text-sm text-red-500 mt-1">{errMsg}</p>}
       </div>
     </div>
   );
-}
+};
