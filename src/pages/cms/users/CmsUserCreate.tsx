@@ -1,23 +1,23 @@
-import { Link } from "react-router";
+import { GoBackButton } from "../../../components/ui/button/BackButton";
+
 
 export default function CmsUserCreate() {
+
+  
   return (
     <>
-      <div className="flex justify-between">
-        <div>
-            <h1 className="text-4xl font-semibold">Create User</h1>
-        </div>
+      <section className="w-full flex flex-col gap-5">
 
-        <div>
-            <input type="text" placeholder="Search...." className="w-80 p-2 m-2 rounded-full bg-amber-50 border "/>
+      <div className="flex w-full justify-between border-b-2 border-b-teal-900/30 pb-5">
+        <h1 className="text-5xl font-semibold text-shadow-lg">
+          User Listing
+        </h1>
 
-        <Link to="/cms/user/signup">
-          <button className="bg-green-500 m-2 p-4 rounded-full cursor-pointer text-whit">
-            Create User
-          </button> 
-        </Link>
+        <div className="flex gap-3 items-center">
+          <GoBackButton>Go to user listing</GoBackButton>
         </div>
-      </div>  
+      </div>
+    </section> 
     </>
   );
 }

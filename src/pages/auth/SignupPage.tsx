@@ -1,7 +1,7 @@
-import LoginForm from "../../components/auth/LoginForm";
+import SignupForm from "../../components/auth/SignUpForm";
 
-export default function LoginPage() {
-  const pageTitle = "Login";
+export default function SignupPage() {
+  const pageTitle = "Signup";
   const pageSubtitle =
     "Enter your registered email and password in the form below:";
   return (
@@ -12,7 +12,7 @@ export default function LoginPage() {
         </h1>
         <p className="text-xs italic font-light">{pageSubtitle}</p>
       </div>
-      <LoginForm />
+      <SignupForm />
     </>
   );
 }

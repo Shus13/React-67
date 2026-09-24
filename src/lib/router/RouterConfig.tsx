@@ -11,6 +11,8 @@ import LoginPage from "../../pages/auth/LoginPage";
 import ForgetPassword from "../../pages/auth/ForgetPasswordPage";
 import NotFound from "../../components/error/NotFound";
 import CmsUserSignUpPage from "../../pages/cms/users/CmsUserSignupPage";
+import SignupPage from "../../pages/auth/SignupPage";
+
 
 const router = createBrowserRouter ([
     // {path: '/', element: <Home />,},
@@ -28,6 +30,7 @@ const router = createBrowserRouter ([
     {path: '/', Component: AuthLayout, children: [
         {index: true, element: <LoginPage/>},
         {path: 'forget-password', element: <ForgetPassword />},
+        {path: 'signup', element: <SignupPage />},
 
         {path: '*', Component: NotFound}
     ]},

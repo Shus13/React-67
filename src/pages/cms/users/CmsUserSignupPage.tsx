@@ -1,6 +1,6 @@
 import SignupForm from "../../../components/auth/SignUpForm";
 
-export default function SignUpPage() {
+export default function CmsUserSignUpPage() {
   const pageTitle = "Signup";
   const pageSubtitle =
     "Enter your details in the form below:";
