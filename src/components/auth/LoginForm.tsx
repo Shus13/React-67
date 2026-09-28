@@ -30,8 +30,8 @@ export default function LoginForm() {
   });
 
   const handleLoginSubmit = (data: CredentialsType) => {
-    console.log(data);
-    // setIsSubmitting(true);
+    console.log(data)
+    // axios implementation here
   };
 
   return (
