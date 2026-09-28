@@ -3,6 +3,7 @@ import Button from "../ui/button/Button";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axiosClient from "../../lib/services/HttpService";
 
 type CredentialsType = {
   username: string;
@@ -11,7 +12,7 @@ type CredentialsType = {
 
 const LoginSchema = z.object({
   username: z
-    .email("Please enter the valid email adress")
+    .string("Please enter the valid email adress")
     .min(1, "Email is required"),
   password: z.string().min(1, "Password is required").min(8, "Password must be of 8 characters"),
 });
@@ -29,8 +30,13 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   });
 
-  const handleLoginSubmit = (data: CredentialsType) => {
-    console.log(data)
+  const handleLoginSubmit = async (data: CredentialsType) => {
+    try{
+      const detail = await axiosClient.post("/auth/login", data)
+      console.log({detail: detail.data})
+    }catch(exception){
+      console.log({exception})
+    }
     // axios implementation here
   };
 
