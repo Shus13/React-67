@@ -4,35 +4,39 @@ import * as z from "zod";
 import { TextInputComponent } from "../ui/form/InputComponent";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axiosClient from "../../lib/services/HttpService";
 
-const stringPassword = /^(?=.*[a-z])(?=.*[A-z])(?=.*[\d])(?=.*[^a-zA-Z\d]).{8,32}$/;
+// const stringPassword = /^(?=.*[a-z])(?=.*[A-z])(?=.*[\d])(?=.*[^a-zA-Z\d]).{8,32}$/;
 
 const SignupSchema = z
   .object({
-    name: z.string("Name can't be empty").min(4, "Nmae must be of 4 character"),
-    email: z
-      .email("Please enter a valid email address")
-      .min(1, "Email is required"),
-    phone: z
-      .string()
-      .min(1, "Phone numbet is required")
-      .min(10, "Phone number must be of 10 digit")
-      .max(10, "Phone number max length is of 10 digit"),
-    password: z
-      .string()
-        .regex(stringPassword, "Password must be between 8 to 32 character with one number, symbol, small and capital words"),
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    age: z.string().min(1, "Age is required"),
+    // name: z.string("Name can't be empty").min(4, "Nmae must be of 4 character"),
+    // email: z
+    //   .email("Please enter a valid email address")
+    //   .min(1, "Email is required"),
+    // phone: z
+    //   .string()
+    //   .min(1, "Phone numbet is required")
+    //   .min(10, "Phone number must be of 10 digit")
+    //   .max(10, "Phone number max length is of 10 digit"),
+    // password: z
+    //   .string()
+    //     .regex(stringPassword, "Password must be between 8 to 32 character with one number, symbol, small and capital words"),
       // .min(8, "Password must be of 8 Characters")
       // .max(32, "Password can't be more than 32 characters")
       // .regex(/[a-z]/, "Password must contain one small letter")
       // .regex(/[A-Z]/, "Password must contain one capital letter")
       // .regex(/[\d]/, "Password must contain one number")
       // .regex(/[^a-zA-Z\d]/, "Password must contain one symbol"),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
+    // confirmPassword: z.string().min(1, "Please confirm your password"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Password doesn't match",
-    path: ["confirmPassword"],
-  });
+  // .refine((data) => data.password === data.confirmPassword, {
+  //   message: "Password doesn't match",
+  //   path: ["confirmPassword"],
+  // });
 
 type CredentialsType = z.infer<typeof SignupSchema>;
 
@@ -43,17 +47,27 @@ export default function SignupForm() {
     formState: { isSubmitting, errors },
   } = useForm<CredentialsType>({
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      firstName: "",
+      lastName: "",
+      age: ""
+      // name: "",
+      // email: "",
+      // phone: "",
+      // password: "",
+      // confirmPassword: "",
     },
     resolver: zodResolver(SignupSchema),
   });
 
-  const handleLoginSubmit = (data: CredentialsType) => {
-    console.log(data);
+  const handleLoginSubmit = async (data: CredentialsType) => {
+    try{
+      const detail = await axiosClient.post("users/add", data)
+      console.log({detail: detail.data})
+
+
+    }catch(exception){
+      console.log({exception})
+    }
   };
 
   return (
@@ -63,6 +77,32 @@ export default function SignupForm() {
         className="w-full flex flex-col gap-5 py-5"
       >
         <TextInputComponent
+          control={control}
+          errMsg={errors?.firstName?.message}
+          label={"First Name:"}
+          type={"text"}
+          placeholder={"Enter your first Name"}
+          name={"firstName"}
+        ></TextInputComponent>
+
+        <TextInputComponent
+          control={control}
+          errMsg={errors?.lastName?.message}
+          label={"Last Name:"}
+          type={"text"}
+          placeholder={"Enter your Last Name"}
+          name={"lastName"}
+        ></TextInputComponent>
+
+        <TextInputComponent
+          control={control}
+          errMsg={errors?.age?.message}
+          label={"Age:"}
+          type={"text"}
+          placeholder={"Enter your Age"}
+          name={"age"}
+        ></TextInputComponent>
+        {/* <TextInputComponent
           control={control}
           errMsg={errors?.name?.message}
           label={"Name:"}
@@ -105,7 +145,7 @@ export default function SignupForm() {
           type={"password"}
           placeholder={"Enter your Password again"}
           name={"confirmPassword"}
-        ></TextInputComponent>
+        ></TextInputComponent> */}
 
         <div className="w-full flex items-center justify-end">
           <div className="w-full">

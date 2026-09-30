@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axiosClient from "../../lib/services/HttpService";
+// import Cookies from "js-cookie";
 
 type CredentialsType = {
   username: string;
@@ -34,6 +35,15 @@ export default function LoginForm() {
     try{
       const detail = await axiosClient.post("/auth/login", data)
       console.log({detail: detail.data})
+
+      // Cookies.set("accessToken", detail.accessToken, {
+      //   expires: 1, secure:true, sameSite: "lax"
+      // })
+
+      // Cookies.set("refreshToken", detail.refreshToken, {
+      //   expires: 1, secure:true, sameSite: "lax"
+      // })
+
     }catch(exception){
       console.log({exception})
     }
