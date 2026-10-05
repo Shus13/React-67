@@ -2,17 +2,11 @@ import { Link } from "react-router";
 import Button from "../ui/button/Button";
 import { TextInputComponent } from "../ui/form/InputComponent";
 
-import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ForgetPasswordSchema, type ForgetPasswordType } from "../../lib/types/Auth.contract";
 
-const ForgetPasswordSchema = z.object({
-  email: z
-    .email("Please enter a valid email address")
-    .min(1, "Email is required"),
-});
 
-type ForgetPasswordType = z.infer<typeof ForgetPasswordSchema>;
 
 export default function ForgetPasswordForm() {
   const {

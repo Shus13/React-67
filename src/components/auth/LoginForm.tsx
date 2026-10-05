@@ -1,22 +1,9 @@
 import { TextInputComponent } from "../ui/form/InputComponent";
 import Button from "../ui/button/Button";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axiosClient from "../../lib/services/HttpService";
-// import Cookies from "js-cookie";
-
-type CredentialsType = {
-  username: string;
-  password: string;
-};
-
-const LoginSchema = z.object({
-  username: z
-    .string("Please enter the valid email adress")
-    .min(1, "Email is required"),
-  password: z.string().min(1, "Password is required").min(8, "Password must be of 8 characters"),
-});
+import { LoginSchema, type CredentialsType } from "../../lib/types/Auth.contract";
+import useAuth from "../../lib/hooks/useAuth";
 
 export default function LoginForm() {
   const {
@@ -31,23 +18,21 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   });
 
+  // const navigate = useNavigate();
+
+  const {login} = useAuth();
+
   const handleLoginSubmit = async (data: CredentialsType) => {
     try{
-      const detail = await axiosClient.post("/auth/login", data)
-      console.log({detail: detail.data})
 
-      // Cookies.set("accessToken", detail.accessToken, {
-      //   expires: 1, secure:true, sameSite: "lax"
-      // })
+      await login(data)
 
-      // Cookies.set("refreshToken", detail.refreshToken, {
-      //   expires: 1, secure:true, sameSite: "lax"
-      // })
+      // navigate("/cms")
 
     }catch(exception){
       console.log({exception})
     }
-    // axios implementation here
+
   };
 
   return (
