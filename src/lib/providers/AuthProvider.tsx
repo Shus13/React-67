@@ -51,7 +51,7 @@ export default function AuthProvider ({children}: Readonly<{children:ReactNode}>
         try {
             const userDetail = await getRequest("/auth/me", {
                 headers: {
-                    "Authorization": "Bearer" + Cookies.get("accessToken")
+                    "Authorization": "Bearer" + " " + Cookies.get("accessToken")
                 }
             }) as unknown as IUserDetail
             setLoggedInUser(userDetail)

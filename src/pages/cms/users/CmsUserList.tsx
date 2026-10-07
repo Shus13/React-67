@@ -1,3 +1,6 @@
+import { Link } from "react-router";
+import CheckPermission from "../../../components/auth/CheckPermission";
+
 export default function CmsUsersList() {
   return (
     <section className="w-full flex flex-col gap-5">
@@ -15,12 +18,14 @@ export default function CmsUsersList() {
               placeholder="Enter username or email for search"
             />
           </form>
-          <a
-            href="/cms/user/create"
+          <CheckPermission permission="can-add-user">
+          <Link
+            to={"/cms/user/create"}
             className="bg-teal-800 w-50 p-2 flex items-center justify-center text-white rounded-full"
           >
             Add User
-          </a>
+          </Link>
+          </CheckPermission>
         </div>
       </div>
 

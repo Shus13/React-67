@@ -1,4 +1,7 @@
+import useAuth from "../../lib/hooks/useAuth";
+
 export default function CmsHeader() {
+  const {loggedInUser} = useAuth();
   return (
     <>
       <header className="fixed left-64 right-0 top-0 z-50 h-16 border-b border-slate-200 bg-white">
@@ -20,10 +23,10 @@ export default function CmsHeader() {
 
               <div className="hidden sm:block">
                 <p className="text-sm font-medium text-slate-800">
-                  Sushit Karki
+                  {loggedInUser?.firstName + " " + loggedInUser?.maidenName + " " + loggedInUser?.lastName}
                 </p>
 
-                <p className="text-xs text-slate-500">Administrator</p>
+                <p className="text-xs text-slate-500">Admin</p>
               </div>
             </div>
           </div>

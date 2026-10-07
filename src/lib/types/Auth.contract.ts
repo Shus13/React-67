@@ -72,6 +72,7 @@ export interface IUserDetail {
     country: string,
   };
   role: string,
+  permission?: Array<string>
 }
 
 export interface IAuthContext {

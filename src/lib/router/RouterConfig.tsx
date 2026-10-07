@@ -27,13 +27,13 @@ const router = createBrowserRouter ([
     //     {path:'terms-and-conditions', Component: TermsAndConditions}
     // ]},
 
-    {path: '/', Component: AuthLayout, children: [
-        {index: true, element: <LoginPage/>},
-        {path: 'forget-password', element: <ForgetPassword />},
-        {path: 'signup', element: <SignupPage />},
+    // {path: '/', Component: AuthLayout, children: [
+    //     {index: true, element: <LoginPage/>},
+    //     {path: 'forget-password', element: <ForgetPassword />},
+    //     {path: 'signup', element: <SignupPage />},
 
-        {path: '*', Component: NotFound}
-    ]},
+    //     {path: '*', Component: NotFound}
+    // ]},
 
     {path: '/cms', Component: CmsLayout, children: [
         {index: true, Component: Dashboard},

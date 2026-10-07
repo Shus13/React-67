@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type CredentialsType } from "../../lib/types/Auth.contract";
 import useAuth from "../../lib/hooks/useAuth";
+import { useNavigate } from "react-router";
 
 export default function LoginForm() {
   const {
@@ -18,16 +19,16 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {login} = useAuth();
 
   const handleLoginSubmit = async (data: CredentialsType) => {
     try{
 
-      await login(data)
+      await login(data);
 
-      // navigate("/cms")
+      navigate("/cms")
 
     }catch(exception){
       console.log({exception})
